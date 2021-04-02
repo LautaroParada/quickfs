@@ -16,3 +16,4 @@ client = QuickFS(api_key)
 
 resp = client.get_companies_metadata(df=True)
 resp = client.get_supported_companies(country='US', exchange='NYSE')
+resp = client.get_updated_companies(country='US', date='20210315')

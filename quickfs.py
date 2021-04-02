@@ -108,18 +108,50 @@ class QuickFS():
         -------
         ticker symbols.
 
-        """
-        if country is None or exchange is None:
-            print('Some of the arguments is missing, please enter some values')
-            return
-            
+        """            
         self.__endpoint_builder(f"/companies/{country}/{exchange}")
         return self.__handle_response()
     
+    
     def get_companies_metadata(self, df:bool = False):
-        
+        """
+        Returns the available countries and exchanges where to get data.
+
+        Parameters
+        ----------
+        df : bool, optional
+            Return as a dataframe or dictionary. The default is False.
+
+        Returns
+        -------
+        dict
+            available countries and exchanges.
+
+        """
         if df:
             return pd.DataFrame(self.metadata)
         else:
             return self.metadata
         
+    
+    def get_updated_companies(self, country: str, date: str):
+        """
+        Returns a list of ticker symbols that were updated with new financial
+        data on or after the specified date (formatted as YYYYMMDD). You may
+        optionally specify a country code (US, CA, MM, AU, NZ, or LN).
+
+        Parameters
+        ----------
+        country : str
+            country to use as a filter.
+        date : str
+            YYYYMMDD format.
+
+        Returns
+        -------
+        dict
+            list of companies with updated financial statements.
+
+        """
+        self.__endpoint_builder(f"/companies/updated/{date}/{country}")
+        return self.__handle_response()
