@@ -155,3 +155,12 @@ class QuickFS():
         """
         self.__endpoint_builder(f"/companies/updated/{date}/{country}")
         return self.__handle_response()
+    
+    
+    # ------------------------------
+    # Metrics
+    # ------------------------------
+    
+    def get_available_metrics(self):
+        self.__endpoint_builder("/metrics")
+        return self.__handle_response()
