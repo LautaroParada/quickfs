@@ -14,5 +14,5 @@ client = QuickFS(api_key)
 
 #%% Companies reference data
 
-resp = client.get_supported_companies(country='US', exchange='NYSE')
 resp = client.get_companies_metadata(df=True)
+resp = client.get_supported_companies(country='US', exchange='NYSE')

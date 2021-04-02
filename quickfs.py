@@ -16,6 +16,7 @@ class QuickFS():
         self.api_key = api_key
         self.timeout = timeout
         self.HOST = 'https://public-api.quickfs.net/v1'
+        self.resp = None
         
         self.headers = {
                 'X-QFS-API-Key': api_key
@@ -75,15 +76,15 @@ class QuickFS():
                 }
         
     def __handle_response(self):
-        resp = requests.post(self.endpoint_pivot, headers=self.headers, timeout=self.timeout)
+        self.resp = requests.get(self.endpoint_pivot, headers=self.headers, timeout=self.timeout)
             
-        if resp.status_code == 200:
-             if 'data' in resp.json().keys():
-                 return resp.json()['data']
+        if self.resp.status_code == 200:
+             if 'data' in self.resp.json().keys():
+                 return self.resp.json()['data']
              else:
-                 return resp.json()
+                 return self.resp.json()
         else:
-            resp.raise_for_status()
+            self.resp.raise_for_status()
             
     def __endpoint_builder(self, endpoint: str):
         self.endpoint_pivot = f"{self.HOST}{endpoint}"
