@@ -22,9 +22,6 @@ class QuickFS():
                 'X-QFS-API-Key': api_key
             }
         
-        self.params = {
-            }
-        
         self.endpoint_pivot = None
         
         self.metadata = {
@@ -75,8 +72,16 @@ class QuickFS():
                     ]
                 }
         
-    def __handle_response(self):
-        self.resp = requests.get(self.endpoint_pivot, headers=self.headers, timeout=self.timeout)
+        self.query_params_names = [
+                "period"
+            ]
+        
+        self.name_error = False
+        
+    
+    
+    def __handle_response(self, query_params: Dict[str, str]={}):
+        self.resp = requests.get(self.endpoint_pivot, params=query_params, headers=self.headers, timeout=self.timeout)
             
         if self.resp.status_code == 200:
              if 'data' in self.resp.json().keys():
@@ -86,8 +91,16 @@ class QuickFS():
         else:
             self.resp.raise_for_status()
             
+    
     def __endpoint_builder(self, endpoint: str):
         self.endpoint_pivot = f"{self.HOST}{endpoint}"
+        
+    
+    def __param_checker(self, items_):
+        for key, value in items_:
+            if key not in self.query_params_names:
+                logging.error(f"The parameter {key} is not valid.")
+                self.name_error = True
             
     # ------------------------------
     # Companies
@@ -162,5 +175,29 @@ class QuickFS():
     # ------------------------------
     
     def get_available_metrics(self):
+        """
+        Returns a list of available metrics with associated metadata
+
+        Returns
+        -------
+        dict
+            
+        """
         self.__endpoint_builder("/metrics")
         return self.__handle_response()
+    
+    
+    # ------------------------------
+    # Datapoints
+    # ------------------------------
+    
+    def get_data(self, symbol: str, metric: str, **query_params):
+        self.__endpoint_builder(f"/data/{symbol.upper()}/{metric.lower()}")
+        
+        self.__param_checker(items_=query_params.items())
+        
+        if self.name_error:
+            self.name_error = False
+            return
+        
+        return self.__handle_response(query_params)

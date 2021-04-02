@@ -21,3 +21,7 @@ resp = client.get_updated_companies(country='US', date='20210315')
 #%% Metrics
 
 resp = client.get_available_metrics()
+
+#%% Datapoints
+
+resp = client.get_data(symbol='KO', metric='revenue', period='FQ-3:FQ')
