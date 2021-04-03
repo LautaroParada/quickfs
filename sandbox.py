@@ -24,4 +24,5 @@ resp = client.get_available_metrics()
 
 #%% Datapoints
 
-resp = client.get_data(symbol='KO', metric='revenue', period='FQ-3:FQ')
+resp = client.get_data_range(symbol='KO', metric='revenue', period='FQ-3:FQ')
+resp = client.get_data_full(symbol='KO')

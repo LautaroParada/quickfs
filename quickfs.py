@@ -191,7 +191,7 @@ class QuickFS():
     # Datapoints
     # ------------------------------
     
-    def get_data(self, symbol: str, metric: str, **query_params):
+    def get_data_range(self, symbol: str, metric: str, **query_params):
         self.__endpoint_builder(f"/data/{symbol.upper()}/{metric.lower()}")
         
         self.__param_checker(items_=query_params.items())
@@ -201,3 +201,8 @@ class QuickFS():
             return
         
         return self.__handle_response(query_params)
+    
+    
+    def get_data_full(self, symbol: str):
+        self.__endpoint_builder(f"/data/all-data/{symbol.upper()}")
+        return self.__handle_response()
