@@ -24,6 +24,14 @@ class QuickFS():
         
         self.endpoint_pivot = None
         
+        self.QUICKFS_KEYS = [
+                'data',
+                'usage'
+            ]
+        
+        self.keys_bool = False
+        self.response_key = None
+        
         self.metadata = {
                 'Country':[
                     'United States', 
@@ -79,15 +87,14 @@ class QuickFS():
         self.name_error = False
         
     
-    
     def __handle_response(self, query_params: Dict[str, str]={}):
         self.resp = requests.get(self.endpoint_pivot, params=query_params, headers=self.headers, timeout=self.timeout)
+        self.__response_key_finder(self.resp)
             
         if self.resp.status_code == 200:
-             if 'data' in self.resp.json().keys():
-                 return self.resp.json()['data']
-             else:
-                 return self.resp.json()
+            self.keys_bool = False
+            return self.resp.json()[self.response_key]
+            
         else:
             self.resp.raise_for_status()
             
@@ -101,6 +108,14 @@ class QuickFS():
             if key not in self.query_params_names:
                 logging.error(f"The parameter {key} is not valid.")
                 self.name_error = True
+                
+    def __response_key_finder(self, response):
+        for key, value in response.json().items():
+            if key in self.QUICKFS_KEYS:
+                self.keys_bool = True
+                self.response_key = key
+            else:
+                self.keys_bool = False
             
     # ------------------------------
     # Companies
@@ -205,4 +220,13 @@ class QuickFS():
     
     def get_data_full(self, symbol: str):
         self.__endpoint_builder(f"/data/all-data/{symbol.upper()}")
+        return self.__handle_response()
+    
+    
+    # ------------------------------
+    # Usage History
+    # ------------------------------
+    
+    def get_usage(self):
+        self.__endpoint_builder("/usage")
         return self.__handle_response()
