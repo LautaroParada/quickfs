@@ -263,6 +263,21 @@ class QuickFS():
     
     
     def get_data_full(self, symbol: str):
+        """
+        Pull metadata and all financial statements (annual and quarterly) for
+        all periods for a single stock in one API call.
+
+        Parameters
+        ----------
+        symbol : str
+            Company symbol or qfs_symbol.
+
+        Returns
+        -------
+        type
+            metadata fields for the selected company.
+
+        """
         self.__endpoint_builder(f"/data/all-data/{symbol.upper()}")
         return self.__handle_response()
     
