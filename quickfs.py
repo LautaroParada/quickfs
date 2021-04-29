@@ -310,5 +310,14 @@ class QuickFS():
     # ------------------------------
     
     def get_usage(self):
+        """
+        Returns your current API usage and limits
+
+        Returns
+        -------
+        dict
+            usage and limits for account.
+
+        """
         self.__endpoint_builder("/usage")
         return self.__handle_response()
