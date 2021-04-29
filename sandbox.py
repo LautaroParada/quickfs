@@ -15,7 +15,7 @@ client = QuickFS(api_key)
 
 #%% Companies reference data
 
-resp = client.get_companies_metadata(df=True)
+resp = client.get_api_metadata(df=True)
 resp = client.get_supported_companies(country='US', exchange='NYSE')
 random_company = np.random.choice(resp)
 resp = client.get_updated_companies(country='US', date='20210420')

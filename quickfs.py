@@ -160,14 +160,15 @@ class QuickFS():
 
         Returns
         -------
-        ticker symbols.
+        list
+            ticker symbols.
 
         """            
         self.__endpoint_builder(f"/companies/{country}/{exchange}")
         return self.__handle_response()
     
     
-    def get_companies_metadata(self, df:bool = False):
+    def get_api_metadata(self, df:bool = False):
         """
         Returns the available countries and exchanges where to get data.
 
@@ -178,7 +179,7 @@ class QuickFS():
 
         Returns
         -------
-        dict
+        dict or pandas.DataFrame
             available countries and exchanges.
 
         """
@@ -203,7 +204,7 @@ class QuickFS():
 
         Returns
         -------
-        dict
+        list
             list of companies with updated financial statements.
 
         """
@@ -222,6 +223,7 @@ class QuickFS():
         Returns
         -------
         dict
+            available metrics
             
         """
         self.__endpoint_builder("/metrics")
@@ -234,21 +236,19 @@ class QuickFS():
     
     def get_data_range(self, symbol: str, metric: str, **query_params):
         """
-        
+        Returns range of datapoints for a single company metric.
 
         Parameters
         ----------
         symbol : str
-            DESCRIPTION.
+            Company symbol or qfs_symbol.
         metric : str
-            DESCRIPTION.
-        **query_params : TYPE
-            DESCRIPTION.
+            QuickFS metric name.
 
         Returns
         -------
-        TYPE
-            DESCRIPTION.
+        list
+            datapoints for a single company metric.
 
         """
         self.__endpoint_builder(f"/data/{symbol.upper()}/{metric.lower()}")
