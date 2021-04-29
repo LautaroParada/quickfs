@@ -283,6 +283,24 @@ class QuickFS():
     
     
     def get_data_batch(self, companies: List[str], metrics: List[str], period: str):
+        """
+        batch request for several companies retrieving multiple metrics.
+
+        Parameters
+        ----------
+        companies : List[str]
+            list of companies to query.
+        metrics : List[str]
+            list of metrics to query.
+        period : str
+            Period or period range.
+
+        Returns
+        -------
+        dict
+            data for the selected companies and metrics.
+
+        """
         self.__handler_request_body(companies=companies, metrics=metrics, period=period)
         self.__endpoint_builder("/data/batch")
         return self.__handle_response()
