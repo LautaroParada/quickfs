@@ -6,7 +6,7 @@ Created on Fri Apr  2 10:55:18 2021
 """
 
 import requests
-from typing import Dict
+from typing import Dict, List
 import logging
 import pandas as pd
 
@@ -86,9 +86,26 @@ class QuickFS():
         
         self.name_error = False
         
+        self.request_body = None
+        self.test = None
+        
     
     def __handle_response(self, query_params: Dict[str, str]={}):
-        self.resp = requests.get(self.endpoint_pivot, params=query_params, headers=self.headers, timeout=self.timeout)
+        
+        if self.request_body is None:
+            self.resp = requests.get(self.endpoint_pivot, 
+                                     params=query_params, 
+                                     headers=self.headers, 
+                                     timeout=self.timeout)
+        else:
+            self.resp = requests.post(self.endpoint_pivot,
+                                     json=self.request_body,
+                                     headers=self.headers,
+                                     timeout=self.timeout)
+            
+            self.request_body = None
+            
+            
         self.__response_key_finder(self.resp)
             
         if self.resp.status_code == 200:
@@ -116,6 +133,15 @@ class QuickFS():
                 self.response_key = key
             else:
                 self.keys_bool = False
+                
+    def __handler_request_body(self, companies, metrics, period):
+        self.request_body = {
+            "data":{
+                metric: {
+                    company: f"QFS({company},{metric},{period})" for company in companies
+                    } for metric in metrics
+                }
+            }
             
     # ------------------------------
     # Companies
@@ -207,6 +233,24 @@ class QuickFS():
     # ------------------------------
     
     def get_data_range(self, symbol: str, metric: str, **query_params):
+        """
+        
+
+        Parameters
+        ----------
+        symbol : str
+            DESCRIPTION.
+        metric : str
+            DESCRIPTION.
+        **query_params : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        TYPE
+            DESCRIPTION.
+
+        """
         self.__endpoint_builder(f"/data/{symbol.upper()}/{metric.lower()}")
         
         self.__param_checker(items_=query_params.items())
@@ -222,6 +266,11 @@ class QuickFS():
         self.__endpoint_builder(f"/data/all-data/{symbol.upper()}")
         return self.__handle_response()
     
+    
+    def get_data_batch(self, companies: List[str], metrics: List[str], period: str):
+        self.__handler_request_body(companies=companies, metrics=metrics, period=period)
+        self.__endpoint_builder("/data/batch")
+        return self.__handle_response()
     
     # ------------------------------
     # Usage History
