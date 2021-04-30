@@ -7,16 +7,16 @@
 
 **Contents**
 
-1. General description(#general-description)
-2. Requirements(#requirements)
-3. Installation(#installation)
-4. Demo(#demo)
-5. Documentation(#documentation)
-	- Companies(#companies)
-	- Metrics(#metrics)
-	- Datapoints(#datapoints)
-	- Usage history(#usage-history)
-6. Disclaimer(#disclaimer)
+1. [General description](#general-description)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Demo](#demo)
+5. [Documentation](#documentation)
+	- [Companies](#companies)
+	- [Metrics](#metrics)
+	- [Datapoints](#datapoints)
+	- [Usage history](#usage-history)
+6. [Disclaimer](#disclaimer)
 
 ## General description [:arrow_up:](#quickfs-api-sdk)
 This library is the Python :snake: unofficial SDK for the QuickFS REST API. It's intended to be used for data extraction for financial valuations. 
