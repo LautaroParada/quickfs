@@ -150,20 +150,22 @@ class QuickFS():
     def get_supported_companies(self, country: str, exchange: str):
         """
         Returns a list of ticker symbols supported by QuickFS.net. You may 
-        optionally specify a country code (US, CA, MM, AU, NZ, or LN) and 
-        an exchange.
+        optionally specify a country code (US, CA, MM, AU, NZ, or LN) and an 
+        exchange.
 
         Parameters
         ----------
-        **query_params : dict
-            country and exchange to use for filtering.
+        country : str
+            code of the country to request data.
+        exchange : str
+            code of the exchange to request data.
 
         Returns
         -------
         list
-            ticker symbols.
+            available tickers for the country exchange.
 
-        """            
+        """           
         self.__endpoint_builder(f"/companies/{country}/{exchange}")
         return self.__handle_response()
     
@@ -183,10 +185,7 @@ class QuickFS():
             available countries and exchanges.
 
         """
-        if df:
-            return pd.DataFrame(self.metadata)
-        else:
-            return self.metadata
+        return self.metadata
         
     
     def get_updated_companies(self, country: str, date: str):

@@ -55,17 +55,44 @@ resp = client.get_usage()
 
 ## Documentation
 
+All the methods will use the following instance of the general class:
+```python
+from quickfs import QuickFS
+import os
+
+# load the key from the enviroment variables
+api_key = os.environ['API_QUICKFS']
+# client instance
+client = QuickFS(api_key)
+```
+
 ### Companies
 - ```get_api_metadata```: 
-- ```get_supported_companies```:
-- ```get_updated_companies```:
+
+- ```get_supported_companies```:Returns a list of ticker symbols supported by QuickFS.net. You may optionally specify a country code (US, CA, MM, AU, NZ, or LN) and an exchange. It is recommendable to use the get_api_metadata to get the references.
+	- arguments:
+		- country(str): code of the country to request data.
+		- exchange(str): code of the exchange to request data.
+	- Usage:
+```python
+# get the companies for the NYSE exchange
+NYSE = client.get_supported_companies(country='US', exchange='NYSE')
+# get the companies for the LSE
+LSE = client.get_supported_companies(country='LN', exchange='LONDON')
+# get the companies from Australia
+ASX = resp = client.get_supported_companies(country='AU', exchange='ASX')
+```
+
+- ```get_updated_companies```: code of the exchange to request data.
 
 ### Metrics
 - ```get_available_metrics```:
 
 ### Datapoints
 - ```get_data_range```:
+
 - ```get_data_full```:
+
 - ```get_data_batch```:
 
 ### Usage history
