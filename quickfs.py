@@ -217,7 +217,7 @@ class QuickFS():
     
     def get_available_metrics(self):
         """
-        Returns a list of available metrics with associated metadata
+        Returns a list of available metrics with the associated metadata
 
         Returns
         -------

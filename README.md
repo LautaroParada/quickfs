@@ -104,7 +104,7 @@ client.get_updated_companies(country='NZ', date='20210420')
 ```
 
 ### Metrics
-- ```get_available_metrics```: Returns a list of available metrics with the associated metadata
+- ```get_available_metrics```: Returns a list of available metrics with the associated metadata.
 	- **arguments:** ```None```
 	- **usage:**
 ```python
@@ -113,30 +113,47 @@ client.get_available_metrics()
 ```
 
 ### Datapoints
-- ```get_data_range```:
+It is highly recommendable to use the country identifier code for non-U.S. stocks. If you do not specify a country, the API will first try to match a U.S.-listed symbol and, if none is found, will then match with a non-U.S. company with the same symbol. The order of the returned data is from oldest to more recent data. 
+
+Additionally, the period or period range to query should have the following structure ```period``` or ```from:to``` respectively. For example, revenue is reported quarterly and annually, as determined by a company's fiscal calendar. ```FY-9:FY``` represents the last 10 years of annual revenue figures. Similarly, the last 20 quarters of reported quarterly revenue is characterised by the periods ```FQ-19:FQ```.
+
+- ```get_data_range```: Returns range of data points for a single company metric.
 	- **arguments:**
+		- symbol(*str*): company symbol. for example: AAPL:US
+		- metric(*str*): QuickFS metric name.
 	- **usage:**
 ```python
+# get the shares outstanding (shares that have been authorized, issued, and purchased by investors and are held by them).
+client.get_data_range(symbol='AAPL:US', metric='shares_eop', period='FQ-15:FQ')
 ```
 
-- ```get_data_full```:
+- ```get_data_full```: Pull metadata and all financial statements (annual and quarterly) for all periods for a single stock in one API call.
 	- **arguments:**
+		- symbol(*str*): company symbol. for example: AAPL:US
 	- **usage:**
 ```python
+# get the full data for finnCap Group plc
+client.get_data_full(symbol='FCAP:LN')
 ```
 
-- ```get_data_batch```:
+- ```get_data_batch```: Batch request for several companies retrieving multiple metrics.
 	- **arguments:**
+		- companies(*List[str]*): List of companies to query.
+		- metrics(*List[str]*): List of metrics to query.
+		- period(*str*): Period or period range to query.
 	- **usage:**
 ```python
+# Get the last 3 years of ROA and ROIC for Cocacola and Pepsi
+client.get_data_batch(companies=['KO:US', 'PEP:US'], metrics=['roa', 'roic'], period="FY-2:FY")
 ```
 
 
 ### Usage history
-- ```get_usage```:
-	- **arguments:**
+- ```get_usage```:  Returns your current API usage and limits.
+	- **arguments:** ```None```
 	- **usage:**
 ```python
+client.get_usage()
 ```
 
 

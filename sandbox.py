@@ -32,7 +32,7 @@ df[df['metric'].str.contains('volume')]
 #%% Datapoints
 
 resp = client.get_data_range(symbol='AAPL:US', metric='shares_eop', period='FQ-15:FQ')
-resp = client.get_data_full(symbol='AAPL:US')
+resp = client.get_data_full(symbol='FCAP:LN')
 resp = client.get_data_batch(companies=['KO:US', 'PEP:US'], metrics=['roa', 'roic'], period="FY-2:FY")
 
 #%% Usage History
