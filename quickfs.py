@@ -150,24 +150,27 @@ class QuickFS():
     def get_supported_companies(self, country: str, exchange: str):
         """
         Returns a list of ticker symbols supported by QuickFS.net. You may 
-        optionally specify a country code (US, CA, MM, AU, NZ, or LN) and 
-        an exchange.
+        optionally specify a country code (US, CA, MM, AU, NZ, or LN) and an 
+        exchange.
 
         Parameters
         ----------
-        **query_params : dict
-            country and exchange to use for filtering.
+        country : str
+            code of the country to request data.
+        exchange : str
+            code of the exchange to request data.
 
         Returns
         -------
-        ticker symbols.
+        list
+            available tickers for the country exchange.
 
-        """            
+        """           
         self.__endpoint_builder(f"/companies/{country}/{exchange}")
         return self.__handle_response()
     
     
-    def get_companies_metadata(self, df:bool = False):
+    def get_api_metadata(self, df:bool = False):
         """
         Returns the available countries and exchanges where to get data.
 
@@ -178,21 +181,18 @@ class QuickFS():
 
         Returns
         -------
-        dict
+        dict or pandas.DataFrame
             available countries and exchanges.
 
         """
-        if df:
-            return pd.DataFrame(self.metadata)
-        else:
-            return self.metadata
+        return self.metadata
         
     
     def get_updated_companies(self, country: str, date: str):
         """
         Returns a list of ticker symbols that were updated with new financial
         data on or after the specified date (formatted as YYYYMMDD). You may
-        optionally specify a country code (US, CA, MM, AU, NZ, or LN).
+        specify a country code (US, CA, MM, AU, NZ, or LN).
 
         Parameters
         ----------
@@ -203,7 +203,7 @@ class QuickFS():
 
         Returns
         -------
-        dict
+        list
             list of companies with updated financial statements.
 
         """
@@ -217,11 +217,12 @@ class QuickFS():
     
     def get_available_metrics(self):
         """
-        Returns a list of available metrics with associated metadata
+        Returns a list of available metrics with the associated metadata
 
         Returns
         -------
         dict
+            available metrics
             
         """
         self.__endpoint_builder("/metrics")
@@ -234,21 +235,19 @@ class QuickFS():
     
     def get_data_range(self, symbol: str, metric: str, **query_params):
         """
-        
+        Returns range of datapoints for a single company metric.
 
         Parameters
         ----------
         symbol : str
-            DESCRIPTION.
+            Company symbol or qfs_symbol.
         metric : str
-            DESCRIPTION.
-        **query_params : TYPE
-            DESCRIPTION.
+            QuickFS metric name.
 
         Returns
         -------
-        TYPE
-            DESCRIPTION.
+        list
+            datapoints for a single company metric.
 
         """
         self.__endpoint_builder(f"/data/{symbol.upper()}/{metric.lower()}")
@@ -263,11 +262,44 @@ class QuickFS():
     
     
     def get_data_full(self, symbol: str):
+        """
+        Pull metadata and all financial statements (annual and quarterly) for
+        all periods for a single stock in one API call.
+
+        Parameters
+        ----------
+        symbol : str
+            Company symbol or qfs_symbol.
+
+        Returns
+        -------
+        type
+            metadata fields for the selected company.
+
+        """
         self.__endpoint_builder(f"/data/all-data/{symbol.upper()}")
         return self.__handle_response()
     
     
     def get_data_batch(self, companies: List[str], metrics: List[str], period: str):
+        """
+        batch request for several companies retrieving multiple metrics.
+
+        Parameters
+        ----------
+        companies : List[str]
+            list of companies to query.
+        metrics : List[str]
+            list of metrics to query.
+        period : str
+            Period or period range.
+
+        Returns
+        -------
+        dict
+            data for the selected companies and metrics.
+
+        """
         self.__handler_request_body(companies=companies, metrics=metrics, period=period)
         self.__endpoint_builder("/data/batch")
         return self.__handle_response()
@@ -277,5 +309,14 @@ class QuickFS():
     # ------------------------------
     
     def get_usage(self):
+        """
+        Returns your current API usage and limits
+
+        Returns
+        -------
+        dict
+            usage and limits for account.
+
+        """
         self.__endpoint_builder("/usage")
         return self.__handle_response()

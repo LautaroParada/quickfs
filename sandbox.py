@@ -15,10 +15,10 @@ client = QuickFS(api_key)
 
 #%% Companies reference data
 
-resp = client.get_companies_metadata(df=True)
+resp = client.get_api_metadata()
 resp = client.get_supported_companies(country='US', exchange='NYSE')
 random_company = np.random.choice(resp)
-resp = client.get_updated_companies(country='US', date='20210420')
+resp = client.get_updated_companies(country='NZ', date='20210420')
 
 #%% Metrics
 
@@ -32,7 +32,7 @@ df[df['metric'].str.contains('volume')]
 #%% Datapoints
 
 resp = client.get_data_range(symbol='AAPL:US', metric='shares_eop', period='FQ-15:FQ')
-resp = client.get_data_full(symbol='AAPL:US')
+resp = client.get_data_full(symbol='FCAP:LN')
 resp = client.get_data_batch(companies=['KO:US', 'PEP:US'], metrics=['roa', 'roic'], period="FY-2:FY")
 
 #%% Usage History
