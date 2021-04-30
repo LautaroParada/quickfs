@@ -8,18 +8,21 @@
 **Contents**
 
 1. General description
-2. Installation and requirements
-3. Demo
-4. Documentation
-5. Disclaimer
+2. Requirements
+3. Installation
+4. Demo
+5. Documentation
+6. Disclaimer
 
 ## General description
 This library is the Python :snake: unofficial SDK for the QuickFS REST API. It's intended to be used for data extraction for financial valuations. 
-## Installation and requirements
-
+## Requirements
 - You need to request an API key with the QuickFS team. Create your account in the following [link](https://quickfs.net/)
 - ```Python``` >= 3.8
 
+## Installation
+```python
+```
 ## Demo
 The endpoints of the API will let you request fundamental data for your financial valuation. Here is a demo of its use:
 
@@ -51,6 +54,22 @@ resp = client.get_usage()
 *tutorial on how to save and load environment variables in Python -> [Hiding Passwords and Secret Keys in Environment Variables (Windows)](https://youtu.be/IolxqkL7cD8)*
 
 ## Documentation
+
+### Companies
+- ```get_api_metadata```: 
+- ```get_supported_companies```:
+- ```get_updated_companies```:
+
+### Metrics
+- ```get_available_metrics```:
+
+### Datapoints
+- ```get_data_range```:
+- ```get_data_full```:
+- ```get_data_batch```:
+
+### Usage history
+- ```get_usage```:
 
 ## Disclaimer
 The information in this document is for informational and educational purposes only. Nothing in this document may be construed as financial, legal or tax advice. The content of this document is solely the opinion of the author, who is not a licensed financial advisor or registered investment advisor. The author is not affiliated as a promoter of QuickFS services.
