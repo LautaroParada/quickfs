@@ -14,11 +14,7 @@ DESCRIPTION = 'SDK for the QuickFS API'
 LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
-INSTALL_REQUIRES = [
-      'requests',
-      'typing',
-      'logging'
-]
+INSTALL_REQUIRES = []
 
 setup(name=PACKAGE_NAME,
       version=VERSION,
