@@ -12,6 +12,10 @@
 3. Installation
 4. Demo
 5. Documentation
+	- Companies
+	- Metrics
+	- Datapoints
+	- Usage history
 6. Disclaimer
 
 ## General description
@@ -68,7 +72,7 @@ client = QuickFS(api_key)
 
 ### Companies
 - ```get_api_metadata```: Returns the available countries and exchanges where to get data.
-	- **arguments:*** None
+	- **arguments:*** ```None```
 	- **usage:**
 ```python
 # get the metadata for the countries and exchanges.
@@ -100,17 +104,41 @@ client.get_updated_companies(country='NZ', date='20210420')
 ```
 
 ### Metrics
-- ```get_available_metrics```:
+- ```get_available_metrics```: Returns a list of available metrics with the associated metadata
+	- **arguments:** ```None```
+	- **usage:**
+```python
+# get the supported metrics by quickfs
+client.get_available_metrics()
+```
 
 ### Datapoints
 - ```get_data_range```:
+	- **arguments:**
+	- **usage:**
+```python
+```
 
 - ```get_data_full```:
+	- **arguments:**
+	- **usage:**
+```python
+```
 
 - ```get_data_batch```:
+	- **arguments:**
+	- **usage:**
+```python
+```
+
 
 ### Usage history
 - ```get_usage```:
+	- **arguments:**
+	- **usage:**
+```python
+```
+
 
 ## Disclaimer
 The information in this document is for informational and educational purposes only. Nothing in this document may be construed as financial, legal or tax advice. The content of this document is solely the opinion of the author, who is not a licensed financial advisor or registered investment advisor. The author is not affiliated as a promoter of QuickFS services.
