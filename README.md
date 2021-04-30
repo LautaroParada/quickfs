@@ -67,13 +67,19 @@ client = QuickFS(api_key)
 ```
 
 ### Companies
-- ```get_api_metadata```: 
+- ```get_api_metadata```: Returns the available countries and exchanges where to get data.
+	- **arguments:*** None
+	- **usage:**
+```python
+# get the metadata for the countries and exchanges.
+META = client.get_api_metadata()
+```
 
-- ```get_supported_companies```:Returns a list of ticker symbols supported by QuickFS.net. You may optionally specify a country code (US, CA, MM, AU, NZ, or LN) and an exchange. It is recommendable to use the get_api_metadata to get the references.
-	- arguments:
-		- country(str): code of the country to request data.
-		- exchange(str): code of the exchange to request data.
-	- Usage:
+- ```get_supported_companies```: Returns a list of ticker symbols supported by QuickFS. It is recommendable to use the ```get_api_metadata``` to get the references for each argument.
+	- **arguments:**
+		- country(*str*): code of the country to request data.
+		- exchange(*str*): code of the exchange to request data.
+	- **usage:**
 ```python
 # get the companies for the NYSE exchange
 NYSE = client.get_supported_companies(country='US', exchange='NYSE')
@@ -83,7 +89,7 @@ LSE = client.get_supported_companies(country='LN', exchange='LONDON')
 ASX = resp = client.get_supported_companies(country='AU', exchange='ASX')
 ```
 
-- ```get_updated_companies```: code of the exchange to request data.
+- ```get_updated_companies```:
 
 ### Metrics
 - ```get_available_metrics```:
