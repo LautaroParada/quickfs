@@ -72,13 +72,13 @@ client = QuickFS(api_key)
 	- **usage:**
 ```python
 # get the metadata for the countries and exchanges.
-META = client.get_api_metadata()
+client.get_api_metadata()
 ```
 
-- ```get_supported_companies```: Returns a list of ticker symbols supported by QuickFS. It is recommendable to use the ```get_api_metadata``` to get the references for each argument.
+- ```get_supported_companies```: Returns a list of ticker symbols supported by QuickFS. You need to specify a country code (US, CA, MM, AU, NZ, MN, or LN). It is recommendable to use the ```get_api_metadata``` to get the references for each argument.
 	- **arguments:**
-		- country(*str*): code of the country to request data.
-		- exchange(*str*): code of the exchange to request data.
+		- country(*str*): quickfs code of the country to request data.
+		- exchange(*str*): quickfs code of the exchange to request data.
 	- **usage:**
 ```python
 # get the companies for the NYSE exchange
@@ -89,7 +89,15 @@ LSE = client.get_supported_companies(country='LN', exchange='LONDON')
 ASX = resp = client.get_supported_companies(country='AU', exchange='ASX')
 ```
 
-- ```get_updated_companies```:
+- ```get_updated_companies```: Returns a list of ticker symbols that were updated with new financial data on or after the specified date (formatted as YYYYMMDD). You need to specify a country code (US, CA, MM, AU, NZ, MN, or LN).
+	- **arguments:**
+		- country(*str*): quickfs code of the country to request data.
+		- date(*str*): specific date to request data, it should be written in the following format YYYYMMDD. Please be aware that may be a delay in the company update and the actual update in the quickfs database.
+	- **usage**
+```python
+# get the updated companies from New Zeland
+client.get_updated_companies(country='NZ', date='20210420')
+```
 
 ### Metrics
 - ```get_available_metrics```:

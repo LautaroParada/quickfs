@@ -192,7 +192,7 @@ class QuickFS():
         """
         Returns a list of ticker symbols that were updated with new financial
         data on or after the specified date (formatted as YYYYMMDD). You may
-        optionally specify a country code (US, CA, MM, AU, NZ, or LN).
+        specify a country code (US, CA, MM, AU, NZ, or LN).
 
         Parameters
         ----------
