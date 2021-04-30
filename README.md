@@ -26,6 +26,7 @@ This library is the Python :snake: unofficial SDK for the QuickFS REST API. It's
 
 ## Installation [:arrow_up:](#quickfs-api-sdk)
 ```python
+pip install quickfs
 ```
 ## Demo [:arrow_up:](#quickfs-api-sdk)
 The endpoints of the API will let you request fundamental data for your financial valuation. Here is a demo of its use:
