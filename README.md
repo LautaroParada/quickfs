@@ -7,27 +7,28 @@
 
 **Contents**
 
-1. General description
-2. Requirements
-3. Installation
-4. Demo
-5. Documentation
-	- Companies
-	- Metrics
-	- Datapoints
-	- Usage history
-6. Disclaimer
+1. [General description](#general-description-arrow_up)
+2. [Requirements](#requirements-arrow_up)
+3. [Installation](#installation-arrow_up)
+4. [Demo](#demo-arrow_up)
+5. [Documentation](#documentation-arrow_up)
+	- [Companies](#companies-arrow_up)
+	- [Metrics](#metrics-arrow_up)
+	- [Datapoints](#datapoints-arrow_up)
+	- [Usage history](#usage-history-arrow_up)
+6. [Disclaimer](#disclaimer-arrow_up)
 
-## General description
+## General description [:arrow_up:](#quickfs-api-sdk)
 This library is the Python :snake: unofficial SDK for the QuickFS REST API. It's intended to be used for data extraction for financial valuations. 
-## Requirements
+## Requirements [:arrow_up:](#quickfs-api-sdk)
 - You need to request an API key with the QuickFS team. Create your account in the following [link](https://quickfs.net/)
 - ```Python``` >= 3.8
 
-## Installation
+## Installation [:arrow_up:](#quickfs-api-sdk)
 ```python
+pip install quickfs
 ```
-## Demo
+## Demo [:arrow_up:](#quickfs-api-sdk)
 The endpoints of the API will let you request fundamental data for your financial valuation. Here is a demo of its use:
 
 ```python
@@ -57,7 +58,7 @@ resp = client.get_usage()
 ```
 *tutorial on how to save and load environment variables in Python -> [Hiding Passwords and Secret Keys in Environment Variables (Windows)](https://youtu.be/IolxqkL7cD8)*
 
-## Documentation
+## Documentation [:arrow_up:](#quickfs-api-sdk)
 
 All the methods will use the following instance of the general class:
 ```python
@@ -70,7 +71,7 @@ api_key = os.environ['API_QUICKFS']
 client = QuickFS(api_key)
 ```
 
-### Companies
+### Companies [:arrow_up:](#quickfs-api-sdk)
 - ```get_api_metadata```: Returns the available countries and exchanges where to get data.
 	- **arguments:*** ```None```
 	- **usage:**
@@ -103,7 +104,7 @@ ASX = resp = client.get_supported_companies(country='AU', exchange='ASX')
 client.get_updated_companies(country='NZ', date='20210420')
 ```
 
-### Metrics
+### Metrics [:arrow_up:](#quickfs-api-sdk)
 - ```get_available_metrics```: Returns a list of available metrics with the associated metadata.
 	- **arguments:** ```None```
 	- **usage:**
@@ -112,7 +113,7 @@ client.get_updated_companies(country='NZ', date='20210420')
 client.get_available_metrics()
 ```
 
-### Datapoints
+### Datapoints [:arrow_up:](#quickfs-api-sdk)
 It is highly recommendable to use the country identifier code for non-U.S. stocks. If you do not specify a country, the API will first try to match a U.S.-listed symbol and, if none is found, will then match with a non-U.S. company with the same symbol. The order of the returned data is from oldest to more recent data. 
 
 Additionally, the period or period range to query should have the following structure ```period``` or ```from:to``` respectively. For example, revenue is reported quarterly and annually, as determined by a company's fiscal calendar. ```FY-9:FY``` represents the last 10 years of annual revenue figures. Similarly, the last 20 quarters of reported quarterly revenue is characterised by the periods ```FQ-19:FQ```.
@@ -148,7 +149,7 @@ client.get_data_batch(companies=['KO:US', 'PEP:US'], metrics=['roa', 'roic'], pe
 ```
 
 
-### Usage history
+### Usage history [:arrow_up:](#quickfs-api-sdk)
 - ```get_usage```:  Returns your current API usage and limits.
 	- **arguments:** ```None```
 	- **usage:**
@@ -157,7 +158,7 @@ client.get_usage()
 ```
 
 
-## Disclaimer
+## Disclaimer [:arrow_up:](#quickfs-api-sdk)
 The information in this document is for informational and educational purposes only. Nothing in this document may be construed as financial, legal or tax advice. The content of this document is solely the opinion of the author, who is not a licensed financial advisor or registered investment advisor. The author is not affiliated as a promoter of QuickFS services.
 
 This document is not an offer to buy or sell financial instruments. Never invest more than you can afford to lose. You should consult a registered professional advisor before making any investment.

@@ -1,0 +1,1 @@
+from .quickfs import QuickFS

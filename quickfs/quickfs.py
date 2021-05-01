@@ -8,7 +8,6 @@ Created on Fri Apr  2 10:55:18 2021
 import requests
 from typing import Dict, List
 import logging
-import pandas as pd
 
 class QuickFS():
     
