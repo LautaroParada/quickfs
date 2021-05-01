@@ -43,18 +43,13 @@ client = QuickFS(api_key)
 # Request reference data for the supported companies
 resp = client.get_api_metadata()
 resp = client.get_supported_companies(country='US', exchange='NYSE')
-resp = client.get_updated_companies(country='US', date='20210420')
-
-# Available metrics in the API
-resp = client.get_available_metrics()
-
-# Request fundamental data for each company
-resp = client.get_data_range(symbol='AAPL:US', metric='shares_eop', period='FQ-15:FQ')
-resp = client.get_data_full(symbol='AAPL:US')
-resp = client.get_data_batch(companies=['KO:US', 'PEP:US'], metrics=['roa', 'roic'], period="FY-2:FY")
 
 # Usage history
 resp = client.get_usage()
+
+# If required, the user can verify the content of the response from the API with the following property:
+client.resp
+# This property contains the raw form of the request object.
 ```
 *tutorial on how to save and load environment variables in Python -> [Hiding Passwords and Secret Keys in Environment Variables (Windows)](https://youtu.be/IolxqkL7cD8)*
 
