@@ -59,7 +59,7 @@ class QuickFS():
                     'CA',
                     'AU',
                     'NZ',
-                    'MN', 
+                    'MM', 
                     'LN'
                          ], 
                 'Exchanges':[
