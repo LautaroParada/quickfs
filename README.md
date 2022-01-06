@@ -143,6 +143,29 @@ client.get_data_full(symbol='FCAP:LN')
 client.get_data_batch(companies=['KO:US', 'PEP:US'], metrics=['roa', 'roic'], period="FY-2:FY")
 ```
 
+Some companies do not have data for a specific metric (This is rare and usually happens for companies with recent IPO's). If this situation happens, you will receive a ```None``` as a response from the API. For those cases, I recommend the following code:
+```python
+# Call all the companies from the NYSE exchange
+nyse = client.get_supported_companies(country='US', exchange='NYSE')
+# Create a batch request for the selected metrics. The last 4th quarters of data
+resp = client.get_data_batch(nyse, 
+					metrics=['gross_margin', 'roa', 'enterprise_value'], 
+                    period="FQ-3:FQ")
+# Assume you have a None response, i.e., some companies will not have data for the requested metric.
+
+# Check the status of the call
+print(client.resp) # If it says 207, you have content to use.
+
+print(client.resp._content) # check the error
+
+import json
+# filter and extract for the companies that you have data
+special_ = json.loads(client.resp._content.decode('utf-8'))['data']
+# transform it to a pandas dataframe (if you want it)
+import pandas as pd
+special_ = pd.DataFrame(special_)
+``` 
+
 
 ### Usage history [:arrow_up:](#quickfs-api-sdk)
 - ```get_usage```:  Returns your current API usage and limits.
